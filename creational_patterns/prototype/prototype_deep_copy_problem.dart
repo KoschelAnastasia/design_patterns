@@ -1,4 +1,4 @@
-// Creational Design Patterns: Prototype
+// Creational Design Patterns: Prototype - Problem
 
 // Die Klasse Cloneable repräsentiert ein Objekt, das geklont werden kann.
 abstract class Cloneable {
