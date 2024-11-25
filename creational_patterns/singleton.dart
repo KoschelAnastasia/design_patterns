@@ -1,3 +1,5 @@
+//Creational Design Pattern: Singleton
+
 // Die Singleton-Klasse repräsentiert einen Präsidenten
 class President {
   // Statische Variable, die die einzige Instanz speichert

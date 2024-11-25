@@ -1,3 +1,5 @@
+// Creational Design Patterns: Builder
+
 // Die Hauptklasse House repräsentiert ein Haus mit verschiedenen Eigenschaften.
 class House {
   int rooms;
