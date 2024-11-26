@@ -43,6 +43,6 @@ void main() {
   TicketFactory factory = BusTicketFactory();
   Ticket ticket = factory.createTicket(age);
 
-  print('Ihr Ticket: ${ticket.getTicketType()}');
-  print('Preis: ${ticket.getPrice()}');
+  print('Ihr Ticket: ${ticket.getTicketType()}'); // Erwachsene Ticket
+  print('Preis: ${ticket.getPrice()}'); // 10 Euro
 }
