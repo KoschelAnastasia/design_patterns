@@ -89,15 +89,15 @@ void main() {
   String transportType1 = 'bus';
   int age1 = 17;
   Ticket ticket1 = ticketService.getTicket(transportType1, age1);
-  print('Transport: $transportType1');
-  print('Ihr Ticket: ${ticket1.getTicketType()}');
-  print('Preis: ${ticket1.getPrice()}');
+  print('Transport: $transportType1'); // bus
+  print('Ihr Ticket: ${ticket1.getTicketType()}'); // Schüler Bus Ticket
+  print('Preis: ${ticket1.getPrice()}'); // 5 Euro
 
   // Beispiel 2: Zugticket für einen 25-Jährigen
   String transportType2 = 'train';
   int age2 = 25;
   Ticket ticket2 = ticketService.getTicket(transportType2, age2);
-  print('\nTransport: $transportType2');
-  print('Ihr Ticket: ${ticket2.getTicketType()}');
-  print('Preis: ${ticket2.getPrice()}');
+  print('\nTransport: $transportType2'); // train
+  print('Ihr Ticket: ${ticket2.getTicketType()}'); // Erwachsene Train Ticket
+  print('Preis: ${ticket2.getPrice()}'); // 20 Euro
 }
