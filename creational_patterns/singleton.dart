@@ -1,12 +1,13 @@
-//Creational Design Pattern: Singleton
-
 // Die Singleton-Klasse repräsentiert einen Präsidenten
 class President {
   // Statische Variable, die die einzige Instanz speichert
   static final President _instance = President._internal();
 
+  // Privates Feld für den Namen des Präsidenten
+  final String _name;
+
   // Privater Konstruktor
-  President._internal();
+  President._internal() : _name = 'Wladimir';
 
   // Fabrikmethode gibt immer die gleiche Instanz zurück
   factory President() {
@@ -15,7 +16,7 @@ class President {
 
   // Methode, um den Namen des Präsidenten auszugeben
   void getName() {
-    print('Der Name des Präsidenten ist Wladimir');
+    print('Der Name des Präsidenten ist $_name');
   }
 }
 
