@@ -67,7 +67,7 @@ void main() {
   Car originalCar = Car('BMW X3', 'Rot', 2024, Engine('Diesel', 150));
 
   // Klonen des Autos und Ändern der Farbe und des Motortyps
-  Car clonedCar = originalCar.copyWith(color: 'Blau', engine: Engine('Benzin', 150));
+  Car clonedCar = originalCar.copyWith(color: 'Blau', engine: originalCar.engine.copyWith(type: 'Benzin'));
 
   print(
       'Original Auto: $originalCar'); // Original Auto: Modell: BMW X3, Farbe: Rot, Baujahr: 2024, Motor: (Typ: Diesel, Leistung: 150 PS)
