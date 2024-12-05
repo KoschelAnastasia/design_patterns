@@ -1,10 +1,10 @@
-// Abstrakte Schnittstelle für den amerikanischen Stecker
+// Interface für den amerikanischen Stecker
 abstract class AmericanPlug {
   String connectToAmericanSocket();
   double get inputVoltage; // Spannung für amerikanische Steckdose
 }
 
-// Abstrakte Schnittstelle für den europäischen Stecker
+// Interface für den europäischen Stecker
 abstract class EuropeanPlug {
   String connectToEuropeanSocket();
   double get inputVoltage; // Spannung für europäische Steckdose
