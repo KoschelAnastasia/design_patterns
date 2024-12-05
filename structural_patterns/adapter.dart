@@ -1,3 +1,5 @@
+//Structural Design Pattern: Adapter
+
 // Interface für den amerikanischen Stecker
 abstract class AmericanPlug {
   String connectToAmericanSocket();

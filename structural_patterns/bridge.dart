@@ -1,3 +1,5 @@
+//Structural Design Pattern: Bridge
+
 // Interface für Geräte
 abstract class Device {
   bool get isEnabled;

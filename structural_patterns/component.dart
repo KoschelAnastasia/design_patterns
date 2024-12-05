@@ -1,4 +1,4 @@
-//Structural Design Pattern: Composite (Kompositum)
+//Structural Design Pattern: Composite
 
 // Interface für die Komponente
 abstract class Component {
