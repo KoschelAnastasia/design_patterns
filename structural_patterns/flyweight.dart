@@ -7,11 +7,6 @@ class TreeType {
   final String texture;
 
   TreeType(this.name, this.color, this.texture);
-
-  // Zeichnet einen Baum des angegebenen Typs an der Position (x, y)
-  void draw(int x, int y) {
-    print('Zeichne einen Baum vom Typ $name in der Farbe $color an der Position ($x, $y)');
-  }
 }
 
 class TreeFactory {
@@ -36,9 +31,10 @@ class Tree {
   // Repräsentiert ein konkretes Objekt, das sich auf gemeinsame Flyweight-Daten stützt
   Tree(this.x, this.y, this.type);
 
-  // Zeichnet den Baum
+  // Zeichnet einen Baum an der Position (x, y)
   void draw() {
-    type.draw(x, y);
+    print(
+        'Zeichne einen Baum vom Typ ${type.name} in der Farbe ${type.color} (Textur: ${type.texture}) an der Position ($x, $y)');
   }
 }
 
@@ -77,7 +73,7 @@ void main() {
 
   // Überprüft, ob zwei Bäume denselben Typ haben (zeigt den Speichergewinn durch Flyweight)
   print(
-      "Der Typ des Baumes [0] und [1] ist dasselbe Objekt in der Arbeitsspeicher: ${forest.trees[0].type == forest.trees[1].type}");
+      "Der Typ des Baumes [0] und [1] ist dasselbe Objekt im Arbeitsspeicher: ${forest.trees[0].type == forest.trees[1].type}");
   print(
-      "Der Typ des Baumes [0] und [3] ist dasselbe Objekt in der Arbeitsspeicher: ${forest.trees[0].type == forest.trees[3].type}");
+      "Der Typ des Baumes [0] und [3] ist dasselbe Objekt im Arbeitsspeicher: ${forest.trees[0].type == forest.trees[3].type}");
 }
