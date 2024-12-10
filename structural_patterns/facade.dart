@@ -68,7 +68,7 @@ class VideoConverter {
     var codecFactory = CodecFactory();
     var sourceCodec = codecFactory.extract(file);
 
-    dynamic destinationCodec;
+    Codec destinationCodec;
     if (format == "mp4") {
       destinationCodec = MPEG4CompressionCodec();
     } else {
@@ -86,10 +86,10 @@ class VideoConverter {
 }
 
 void main() {
-  var converter = VideoConverter();
-  var mp4 = converter.convert("funny-cats-video.ogg", "mp4");
+  final converter = VideoConverter();
+  final mp4 = converter.convert("funny-cats-video.ogg", "mp4");
   mp4.save();
   print("--------------------");
-  var ogg = converter.convert("funny-cats-video.mp4", "ogg");
+  final ogg = converter.convert("funny-cats-video.mp4", "ogg");
   ogg.save();
 }
