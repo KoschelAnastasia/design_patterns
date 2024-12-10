@@ -65,8 +65,8 @@ class AudioMixer {
 class VideoConverter {
   File convert(String filename, String format) {
     VideoFile file = VideoFile(filename);
-    var codecFactory = CodecFactory();
-    var sourceCodec = codecFactory.extract(file);
+    final codecFactory = CodecFactory();
+    final sourceCodec = codecFactory.extract(file);
 
     Codec destinationCodec;
     if (format == "mp4") {
