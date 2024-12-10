@@ -28,7 +28,7 @@ class CoffeeDecorator implements Coffee {
   double get price => _coffee.price;
 }
 
-// Konkrete Implementierung des Dekorators für Milch
+//Erweiterung für Milch
 class MilkDecorator extends CoffeeDecorator {
   MilkDecorator(Coffee coffee) : super(coffee);
 
@@ -43,7 +43,7 @@ class MilkDecorator extends CoffeeDecorator {
   }
 }
 
-// Konkrete Implementierung des Dekorators für Zucker
+//Erweiterung für Zucker
 class SugarDecorator extends CoffeeDecorator {
   SugarDecorator(Coffee coffee) : super(coffee);
 
