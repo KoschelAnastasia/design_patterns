@@ -59,12 +59,13 @@ class SugarDecorator extends CoffeeDecorator {
 }
 
 void main() {
-  Coffee coffee = SimpleCoffee();
+  final Coffee coffee = SimpleCoffee();
   print("${coffee.description};\nPreis: ${coffee.price} Euro\n"); // Kaffee; Preis: 2.0 Euro
 
-  coffee = MilkDecorator(coffee);
-  print("${coffee.description}; \nPreis: ${coffee.price} Euro\n"); // Kaffee, Milch; Preis: 2.5 Euro
+  final Coffee milkCoffee = MilkDecorator(coffee);
+  print("${milkCoffee.description}; \nPreis: ${milkCoffee.price} Euro\n"); // Kaffee, Milch; Preis: 2.5 Euro
 
-  coffee = SugarDecorator(coffee);
-  print("${coffee.description}; \nPreis: ${coffee.price} Euro\n"); // Kaffee, Milch, Zucker; Preis: 2.7 Euro
+  final Coffee sugarMilkCoffe = SugarDecorator(MilkDecorator(coffee));
+  print(
+      "${sugarMilkCoffe.description}; \nPreis: ${sugarMilkCoffe.price} Euro\n"); // Kaffee, Milch, Zucker; Preis: 2.7 Euro
 }
