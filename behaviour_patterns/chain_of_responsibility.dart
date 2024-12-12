@@ -1,70 +1,66 @@
-abstract class PoliceOfficer {
-  PoliceOfficer? nextOfficer;
+class CriminalAction {
+  final int complexity; // Schwierigkeitsgrad des Falls
+  final String description; // Kurze Beschreibung des Verbrechens
 
-  // Methode zur Fallbearbeitung
-  void handleCase(String caseType);
+  CriminalAction(this.complexity, this.description);
+}
 
-  // Setzt den nächsten Polizisten
-  void setNext(PoliceOfficer next) {
-    nextOfficer = next;
+abstract class Policeman {
+  final String name;
+  final String rank;
+  final int deduction;
+  Policeman? next;
+
+  Policeman(this.deduction, this.name, this.rank);
+
+  // Methode zum Festlegen des nächsten Polizisten in der Kette
+  Policeman setNext(Policeman policeman) {
+    next = policeman;
+    return policeman;
+  }
+
+  // Methode zum Starten der Ermittlung
+  void investigate(CriminalAction criminalAction) {
+    if (deduction < criminalAction.complexity) {
+      print("Fall '${criminalAction.description}' ist zu komplex für $rank $name (Deduktionsstufe: $deduction).");
+      if (next != null) {
+        print("Übergabe des Falls an Polizisten ${next!.name}");
+        next!.investigate(criminalAction);
+      } else {
+        print("Dieser Fall kann von niemandem gelöst werden.");
+      }
+    } else {
+      investigateConcrete(criminalAction.description);
+    }
+  }
+
+  // Methode zur spezifischen Ermittlung
+  void investigateConcrete(String description) {
+    print("Die Ermittlung des Falls '$description' wird von $rank $name durchgeführt.\n");
   }
 }
 
-class RegularPolice extends PoliceOfficer {
-  @override
-  void handleCase(String caseType) {
-    if (caseType == 'simple theft') {
-      print("Der normale Polizist löst einen einfachen Diebstahlsfall.");
-    } else {
-      print("Der normale Polizist kann diesen Fall nicht lösen. Weiterleitung.");
-      nextOfficer?.handleCase(caseType);
-    }
-  }
+class MartinRiggs extends Policeman {
+  MartinRiggs(int deduction) : super(deduction, "Martin Riggs", "Sergeant");
 }
 
-class Detective extends PoliceOfficer {
-  @override
-  void handleCase(String caseType) {
-    if (caseType == 'complicated theft' || caseType == 'fraud') {
-      print("Der Detektiv untersucht einen komplexen Fall.");
-    } else {
-      print("Der Detektiv kann diesen Fall nicht lösen. Weiterleitung.");
-      nextOfficer?.handleCase(caseType);
-    }
-  }
+class JohnMcClane extends Policeman {
+  JohnMcClane(int deduction) : super(deduction, "John McClane", "Detektiv");
 }
 
-class Investigator extends PoliceOfficer {
-  @override
-  void handleCase(String caseType) {
-    if (caseType == 'murder') {
-      print("Der Ermittler untersucht einen Mordfall.");
-    } else {
-      print("Der Ermittler kann diesen Fall nicht lösen. Anfrage nicht bearbeitet.");
-    }
-  }
+class MaxPayne extends Policeman {
+  MaxPayne(int deduction) : super(deduction, "Max Payne", "Detektiv");
 }
 
 void main() {
-  // Erstelle eine Kette von Polizisten
-  PoliceOfficer regularPolice = RegularPolice();
-  PoliceOfficer detective = Detective();
-  PoliceOfficer investigator = Investigator();
+  print("Verantwortungskette (Chain of Responsibility)\n");
 
-  // Setze die Reihenfolge der Bearbeitung
-  regularPolice.setNext(detective);
-  detective.setNext(investigator);
+  Policeman policeman = MartinRiggs(3)
+    ..setNext(JohnMcClane(5))
+    ..setNext(MaxPayne(8));
 
-  // Der Klient reicht den Fall ein
-  print("Der Polizist erhält einen Diebstahlsfall:");
-  regularPolice.handleCase('simple theft');
-
-  print("\nDer Polizist erhält einen Betrugsfall:");
-  regularPolice.handleCase('fraud');
-
-  print("\nDer Polizist erhält einen Mordfall:");
-  regularPolice.handleCase('murder');
-
-  print("\nDer Polizist erhält einen sehr komplexen Fall:");
-  regularPolice.handleCase('unknown case');
+  policeman.investigate(CriminalAction(2, "Drogenhandel aus Vietnam"));
+  policeman.investigate(CriminalAction(5, "Geiselnahme in einem Wolkenkratzer in Los Angeles"));
+  policeman.investigate(CriminalAction(7, "Mord an einer Journalistin in New York"));
+  policeman.investigate(CriminalAction(10, "Suche nach einem Detonator im Zentrum von Gotham"));
 }
