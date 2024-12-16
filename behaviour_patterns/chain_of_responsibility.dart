@@ -1,6 +1,6 @@
 class CriminalAction {
-  final int complexity; // Schwierigkeitsgrad des Falls
-  final String description; // Kurze Beschreibung des Verbrechens
+  final int complexity;
+  final String description;
 
   CriminalAction(this.complexity, this.description);
 }
@@ -8,10 +8,11 @@ class CriminalAction {
 abstract class Policeman {
   final String name;
   final String rank;
-  final int deduction;
   Policeman? next;
 
-  Policeman(this.deduction, this.name, this.rank);
+  Policeman(this.name, this.rank);
+
+  int get deduction;
 
   // Methode zum Festlegen des nächsten Polizisten in der Kette
   Policeman setNext(Policeman policeman) {
@@ -41,26 +42,34 @@ abstract class Policeman {
 }
 
 class MartinRiggs extends Policeman {
-  MartinRiggs(int deduction) : super(deduction, "Martin Riggs", "Sergeant");
+  MartinRiggs() : super("Martin Riggs", "Sergeant");
+
+  @override
+  int get deduction => 3;
 }
 
 class JohnMcClane extends Policeman {
-  JohnMcClane(int deduction) : super(deduction, "John McClane", "Detektiv");
+  JohnMcClane() : super("John McClane", "Detektiv");
+
+  @override
+  int get deduction => 5;
 }
 
 class MaxPayne extends Policeman {
-  MaxPayne(int deduction) : super(deduction, "Max Payne", "Detektiv");
+  MaxPayne() : super("Max Payne", "Detektiv");
+
+  @override
+  int get deduction => 8;
 }
 
 void main() {
   print("Verantwortungskette (Chain of Responsibility)\n");
 
-  Policeman policeman = MartinRiggs(3)
-    ..setNext(JohnMcClane(5))
-    ..setNext(MaxPayne(8));
+  Policeman policeman = MartinRiggs();
+  policeman.setNext(JohnMcClane()).setNext(MaxPayne());
 
   policeman.investigate(CriminalAction(2, "Drogenhandel aus Vietnam"));
   policeman.investigate(CriminalAction(5, "Geiselnahme in einem Wolkenkratzer in Los Angeles"));
   policeman.investigate(CriminalAction(7, "Mord an einer Journalistin in New York"));
-  policeman.investigate(CriminalAction(10, "Suche nach einem Detonator im Zentrum von Gotham"));
+  policeman.investigate(CriminalAction(10, "Der Mord an Laura Palmer in Twin Peaks"));
 }
