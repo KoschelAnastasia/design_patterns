@@ -1,3 +1,5 @@
+//Behavioural Design Pattern - Memento
+
 // Die Klasse Memento speichert den Zustand des Editors.
 // Dies ist ein "Snapshot" – ein unveränderliches Objekt, das den Zustand zu einem bestimmten Zeitpunkt enthält.
 class Memento {

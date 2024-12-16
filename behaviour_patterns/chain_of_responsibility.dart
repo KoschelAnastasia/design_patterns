@@ -1,3 +1,6 @@
+//Behavioral Design Patterns - Chain of Responsibility
+
+//Klasse, die die Informationen über die kriminelle Handlung enthält
 class CriminalAction {
   final int complexity;
   final String description;
@@ -5,6 +8,7 @@ class CriminalAction {
   CriminalAction(this.complexity, this.description);
 }
 
+//Abstrakte Klasse Policeman
 abstract class Policeman {
   final String name;
   final String rank;
@@ -41,6 +45,7 @@ abstract class Policeman {
   }
 }
 
+//Klassen, die von der abstrakten Klasse Policeman erben
 class MartinRiggs extends Policeman {
   MartinRiggs() : super("Martin Riggs", "Sergeant");
 

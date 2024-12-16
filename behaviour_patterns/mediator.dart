@@ -1,11 +1,14 @@
 import 'dart:async';
+//Behavioral Design Patterns - Mediator
 
+// Abstrakte Klasse Mediator – definiert die Interface für die Kommunikation zwischen den Piloten
 abstract class Mediator {
   void registerPilot(Pilot pilot);
   void requestLanding(Pilot pilot);
   void notifyRunwayCleared(Pilot pilot);
 }
 
+// Abstrakte Klasse Pilot – definiert die Basisfunktionalität für die Piloten
 abstract class Pilot {
   final String name;
   Mediator? mediator;
@@ -34,6 +37,7 @@ abstract class Pilot {
   }
 }
 
+// Konkrete Implementierung des Mediators – der Fluglotse
 class Dispatcher implements Mediator {
   final List<Pilot> _pilots = [];
   Pilot? _pilotOnRunway;
@@ -84,6 +88,7 @@ class Dispatcher implements Mediator {
   }
 }
 
+//Klassen AirplanePilot und HelicopterPilot, die von der Klasse Pilot erben
 class AirplanePilot extends Pilot {
   AirplanePilot(String name) : super(name);
 }

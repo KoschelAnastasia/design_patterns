@@ -1,9 +1,13 @@
+//Behavioural Design Pattern - State
+
+// Interface für die Authentifizierungszustände
 abstract class AuthState {
   void login(AuthenticationContext context, String username, String password);
   void logout(AuthenticationContext context);
   bool isAuthenticated();
 }
 
+// Konkrete Implementierung des Interface "AuthState" für den ausgeloggten Zustand
 class LoggedOutState implements AuthState {
   @override
   void login(AuthenticationContext context, String username, String password) {
@@ -25,6 +29,7 @@ class LoggedOutState implements AuthState {
   bool isAuthenticated() => false;
 }
 
+// Konkrete Implementierung des Interface "AuthState" für den eingeloggten Zustand
 class LoggedInState implements AuthState {
   final String username;
 
@@ -46,6 +51,7 @@ class LoggedInState implements AuthState {
   bool isAuthenticated() => true;
 }
 
+// Kontextklasse, die den Authentifizierungszustand verwaltet
 class AuthenticationContext {
   AuthState _state;
 

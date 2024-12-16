@@ -1,3 +1,7 @@
+//Behavioural Design Pattern - Command
+
+// Die Klasse TextEditor – Simuliert einen Texteditor
+
 class TextEditor {
   String _text = '';
 
@@ -14,6 +18,7 @@ class TextEditor {
   }
 }
 
+// Abstrakte Klasse Command
 abstract class Command {
   final TextEditor editor;
 
@@ -23,6 +28,7 @@ abstract class Command {
   void undo();
 }
 
+// Klassen, die die konkreten Befehle darstellen
 class AddTextCommand extends Command {
   final String textToAdd;
   String _backup = '';
@@ -59,6 +65,7 @@ class RemoveTextCommand extends Command {
   }
 }
 
+// Klasse, die die Befehle ausführt und den Verlauf speichert
 class EditorInvoker {
   final TextEditor editor;
   final List<Command> _history = [];
