@@ -25,22 +25,22 @@ abstract class Policeman {
   }
 
   // Methode zum Starten der Ermittlung
-  void investigate(CriminalAction criminalAction) {
+  void handleCase(CriminalAction criminalAction) {
     if (deduction < criminalAction.complexity) {
       print("Fall '${criminalAction.description}' ist zu komplex für $rank $name (Deduktionsstufe: $deduction).");
       if (next != null) {
         print("Übergabe des Falls an Polizisten ${next!.name}");
-        next!.investigate(criminalAction);
+        next!.handleCase(criminalAction);
       } else {
         print("Dieser Fall kann von niemandem gelöst werden.");
       }
     } else {
-      investigateConcrete(criminalAction.description);
+      investigateCase(criminalAction.description);
     }
   }
 
   // Methode zur spezifischen Ermittlung
-  void investigateConcrete(String description) {
+  void investigateCase(String description) {
     print("Die Ermittlung des Falls '$description' wird von $rank $name durchgeführt.\n");
   }
 }
@@ -73,8 +73,8 @@ void main() {
   Policeman policeman = MartinRiggs();
   policeman.setNext(JohnMcClane()).setNext(MaxPayne());
 
-  policeman.investigate(CriminalAction(2, "Drogenhandel aus Vietnam"));
-  policeman.investigate(CriminalAction(5, "Geiselnahme in einem Wolkenkratzer in Los Angeles"));
-  policeman.investigate(CriminalAction(7, "Mord an einer Journalistin in New York"));
-  policeman.investigate(CriminalAction(10, "Der Mord an Laura Palmer in Twin Peaks"));
+  policeman.handleCase(CriminalAction(2, "Drogenhandel aus Vietnam"));
+  policeman.handleCase(CriminalAction(5, "Geiselnahme in einem Wolkenkratzer in Los Angeles"));
+  policeman.handleCase(CriminalAction(7, "Mord an einer Journalistin in New York"));
+  policeman.handleCase(CriminalAction(10, "Der Mord an Laura Palmer in Twin Peaks"));
 }
