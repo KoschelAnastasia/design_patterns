@@ -4,7 +4,7 @@
 abstract class AuthState {
   void login(AuthenticationContext context, String username, String password);
   void logout(AuthenticationContext context);
-  bool isAuthenticated();
+  bool get isAuthenticated;
 }
 
 // Konkrete Implementierung des Interface "AuthState" für den ausgeloggten Zustand
@@ -26,7 +26,7 @@ class LoggedOutState implements AuthState {
   }
 
   @override
-  bool isAuthenticated() => false;
+  bool get isAuthenticated => false;
 }
 
 // Konkrete Implementierung des Interface "AuthState" für den eingeloggten Zustand
@@ -48,7 +48,7 @@ class LoggedInState implements AuthState {
   }
 
   @override
-  bool isAuthenticated() => true;
+  bool get isAuthenticated => true;
 }
 
 // Kontextklasse, die den Authentifizierungszustand verwaltet
@@ -69,9 +69,7 @@ class AuthenticationContext {
     _state.logout(this);
   }
 
-  bool isAuthenticated() {
-    return _state.isAuthenticated();
-  }
+  bool get isAuthenticated => _state.isAuthenticated;
 }
 
 void main() {
@@ -83,11 +81,11 @@ void main() {
 
   authContext.login("admin", "SuperSecretPassword1984!?*");
 
-  print("Ist der Benutzer authentifiziert? ${authContext.isAuthenticated()}\n");
+  print("Ist der Benutzer authentifiziert? ${authContext.isAuthenticated}\n");
 
   authContext.login("admin", "SuperSecretPassword1984!?*");
 
   authContext.logout();
 
-  print("Ist der Benutzer authentifiziert? ${authContext.isAuthenticated()}\n");
+  print("Ist der Benutzer authentifiziert? ${authContext.isAuthenticated}\n");
 }
