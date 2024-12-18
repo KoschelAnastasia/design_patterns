@@ -1,4 +1,4 @@
-//Behavioural Design Pattern - State
+//Behavioral Design Pattern - State
 
 // Interface für die Authentifizierungszustände
 abstract class AuthState {

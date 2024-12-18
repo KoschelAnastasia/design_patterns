@@ -1,4 +1,4 @@
-//Behavioural Design Pattern - Command
+//Behavioral Design Pattern - Command
 
 // Die Klasse TextEditor – Simuliert einen Texteditor
 
