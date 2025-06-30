@@ -1,7 +1,5 @@
 import 'dart:async';
 
-/// Возможные этапы доставки
-
 enum DeliveryStatus {
   ordered('In Bearbeitung'),
   packed('Wird für den Versand vorbereitet'),
@@ -17,27 +15,19 @@ enum DeliveryStatus {
   String toString() => description;
 }
 
-/// ────────────────────────────
-/// Observer — интерфейс слушателя
-/// ────────────────────────────
 abstract class DeliveryObserver {
   void update(DeliveryStatus status);
 }
 
-/// ────────────────────────────
-/// Subject — источник событий
-/// ────────────────────────────
 class DeliverySubject {
   final List<DeliveryObserver> _observers = [];
   DeliveryStatus _status = DeliveryStatus.ordered;
 
-  // Подписка / отписка
   void addObserver(DeliveryObserver o) => _observers.add(o);
   void removeObserver(DeliveryObserver o) => _observers.remove(o);
 
   DeliveryStatus get status => _status;
 
-  /// Изменяем состояние и уведомляем всех
   set status(DeliveryStatus newStatus) {
     if (newStatus == _status) return; // ничего не изменилось
     _status = newStatus;
