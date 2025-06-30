@@ -43,7 +43,6 @@ class Enemy {
 enum EnemyType { zombie, dragon, archer }
 
 // Klasse Unit, die je nach Feind eine Strategie wählt
-//
 class Unit {
   late AttackStrategy _strategy;
 
