@@ -1,5 +1,10 @@
 import 'dart:async';
 
+/// ────────────────────────────
+/// Aufzählung der möglichen Lieferstatus.
+/// Jede Variante repräsentiert eine feste Phase im Versandprozess
+/// mit Beschreibung.
+/// ────────────────────────────
 enum DeliveryStatus {
   ordered('In Bearbeitung'),
   packed('Wird für den Versand vorbereitet'),
@@ -19,6 +24,12 @@ abstract class DeliveryObserver {
   void update(DeliveryStatus status);
 }
 
+/// ────────────────────────────
+/// Publisher
+/// ────────────────────────────
+///
+/// Subjekt: verwaltet den Lieferstatus
+/// und benachrichtigt alle angemeldeten Beobachter (Observer) bei Änderungen.
 class DeliverySubject {
   final List<DeliveryObserver> _observers = [];
   DeliveryStatus _status = DeliveryStatus.ordered;
@@ -29,13 +40,13 @@ class DeliverySubject {
   DeliveryStatus get status => _status;
 
   set status(DeliveryStatus newStatus) {
-    if (newStatus == _status) return; // ничего не изменилось
+    if (newStatus == _status) return; // Keine Benachrichtigung bei unverändertem Status
     _status = newStatus;
-    _notify(); // notifyObservers()
+    _notify(); // Beobachter benachrichtigen
   }
 
   void _notify() {
-    // Копируем список на случай, если observer отпишется в процессе
+    // Liste kopieren, falls sich ein Beobachter währenddessen abmeldet
     for (final obs in List<DeliveryObserver>.from(_observers)) {
       obs.update(_status);
     }
@@ -43,7 +54,7 @@ class DeliverySubject {
 }
 
 /// ────────────────────────────
-/// Конкретный Observer
+/// Konkreter Beobachter (Observer)
 /// ────────────────────────────
 class ConsoleLogger implements DeliveryObserver {
   final String name;
@@ -51,34 +62,35 @@ class ConsoleLogger implements DeliveryObserver {
 
   @override
   void update(DeliveryStatus status) {
-    print('[$name] 📦 новый статус: $status');
+    print('[$name] Neuer Status: $status');
   }
 }
 
 /// ────────────────────────────
-/// Симулируем ход доставки
+/// Liefersimulation
 /// ────────────────────────────
 Future<void> simulateDelivery(DeliverySubject subject) async {
   for (final step in DeliveryStatus.values) {
     await Future.delayed(const Duration(seconds: 2));
-    subject.status = step; // каждое присвоение → notify
+    subject.status = step; // Status aktualisieren
   }
 }
 
 Future<void> main() async {
   final delivery = DeliverySubject();
 
-  // Два независимых наблюдателя
+  // Zwei unabhängige Beobachter
+  // (z.B. Empfänger und Absender), die auf Statusänderungen reagieren
   final recipientLogger = ConsoleLogger('Empfänger');
   final senderLogger = ConsoleLogger('Absender');
 
   delivery.addObserver(recipientLogger);
   delivery.addObserver(senderLogger);
 
-  // Запускаем «доставку»
+  // Lieferung starten
   await simulateDelivery(delivery);
 
-  //  больше не нужен — отписываемся
+  // Wird nicht mehr benötigt – abmelden
   delivery.removeObserver(recipientLogger);
-  print('Empfänger отписался от обновлений');
+  print('Empfänger hat sich von den Updates abgemeldet');
 }

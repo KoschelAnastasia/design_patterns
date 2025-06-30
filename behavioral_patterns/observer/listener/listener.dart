@@ -1,6 +1,8 @@
 import 'dart:async';
 
-/// Возможные этапы доставки
+/// Mögliche Lieferstatus
+/// Jede Variante repräsentiert eine feste Phase im Versandprozess
+/// mit Beschreibung.
 enum DeliveryStatus {
   ordered('In Bearbeitung'),
   packed('Wird für den Versand vorbereitet'),
@@ -16,25 +18,25 @@ enum DeliveryStatus {
   String toString() => description;
 }
 
-/// Функция-генератор: «шлёт» статус раз в 2 с.
+/// Generator-Funktion: „sendet“ alle 2 Sekunden einen neuen Status
 Stream<DeliveryStatus> fakeDeliveryStream() async* {
   for (final status in DeliveryStatus.values) {
     await Future.delayed(const Duration(seconds: 2));
-    yield status; // notifyObservers()
+    yield status; // Benachrichtigt alle Zuhörer
   }
 }
 
 Future<void> main() async {
   final completer = Completer<void>();
-  // Observer подписывается
+
+  // Observer abonniert den Stream
   fakeDeliveryStream().listen(
-    (status) => print('📦 Новый статус: $status'),
+    (status) => print('Neuer Status: $status'),
     onDone: () {
-      print('🎉 Lieferung abgeschlossen');
+      print('Lieferung abgeschlossen');
       completer.complete();
     },
   );
 
-  // ждём конца потока, чтобы приложение не закрылось раньше времени
   await completer.future;
 }
